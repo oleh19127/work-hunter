@@ -47,59 +47,59 @@ class Telegram {
       }
     )
 
-    stage.register(createWizardScene)
-    this.bot.use(session())
-    this.bot.use(stage.middleware())
+    await stage.register(createWizardScene)
+    await this.bot.use(session())
+    await this.bot.use(stage.middleware())
 
-    this.bot.start((ctx) => {
+    await this.bot.start( async (ctx) => {
       try {
-        ctx.reply(`Welcome ${ctx.message.chat.first_name}`)
+        await ctx.reply(`Welcome ${ctx.message.chat.first_name}`)
       } catch (e) {
-        ctx.reply(e.message)
+        await ctx.reply(e.message)
         print.error(e.message)
       }
     })
 
-    this.bot.command('vacancies', async (ctx) => {
+    await this.bot.command('vacancies', async (ctx) => {
       try {
         await ctx.scene.enter('searchJob')
       } catch (e) {
-        ctx.reply(e.message)
+        await ctx.reply(e.message)
         print.error(e.message)
       }
     })
 
-    this.bot.help((ctx) => {
+    await this.bot.help( async (ctx) => {
       try {
-        ctx.reply(commands)
+        await ctx.reply(commands)
       } catch (e) {
-        ctx.reply(e.message)
+        await ctx.reply(e.message)
         print.error(e.message)
       }
     })
 
-    this.bot.on('text', (ctx) => {
+    await this.bot.on('text', async (ctx) => {
       try {
-        ctx.reply(commands)
+        await ctx.reply(commands)
       } catch (e) {
-        ctx.reply(e.message)
+        await ctx.reply(e.message)
         print.error(e.message)
       }
     })
 
-    this.bot.command('quit', (ctx) => {
+    await this.bot.command('quit', async (ctx) => {
       try {
-        ctx.leaveChat()
-        ctx.reply('Leave chat!!!')
+        await ctx.leaveChat()
+        await ctx.reply('Leave chat!!!')
       } catch (e) {
-        ctx.reply(e.message)
+        await ctx.reply(e.message)
         print.error(e.message)
       }
     })
 
     await this.bot.launch()
-    process.once('SIGINT', () => this.bot.stop('SIGINT'))
-    process.once('SIGTERM', () => this.bot.stop('SIGTERM'))
+    process.once('SIGINT', async () => await this.bot.stop('SIGINT'))
+    process.once('SIGTERM', async () => await this.bot.stop('SIGTERM'))
 
   }
 
