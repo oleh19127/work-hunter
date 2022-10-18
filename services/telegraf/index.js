@@ -34,7 +34,7 @@ class Telegram {
             await ctx.replyWithHTML(`Results from: ${vacancies.title}`, {disable_web_page_preview: true})
             for (const item of vacancies.message) {
               await ctx.replyWithHTML(item, {disable_web_page_preview: true})
-              await sleep(700)
+              await sleep(200)
             }
           }
           await ctx.reply('End upload vacancies')
