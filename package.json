@@ -1,0 +1,46 @@
+{
+  "type": "module",
+  "name": "work-hunter",
+  "description": "Telegram bot that parses vacancies from sites",
+  "version": "1.0.0",
+  "main": "app.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "tap \"test/**/*.test.js\"",
+    "start": "fastify start -l info app.js",
+    "dev": "fastify start -w -l info -P app.js"
+  },
+  "keywords": [
+    "telegram",
+    "telegram-bot",
+    "cli",
+    "job finder"
+  ],
+  "author": "Oleh Husak",
+  "license": "ISC",
+  "dependencies": {
+    "@fastify/autoload": "^5.0.0",
+    "@fastify/sensible": "^5.0.0",
+    "cheerio": "^1.0.0-rc.12",
+    "colorette": "^2.0.19",
+    "fastify": "^4.0.0",
+    "fastify-cli": "^5.5.0",
+    "fastify-plugin": "^4.0.0",
+    "node-fetch": "^3.2.10",
+    "ora": "^6.1.2",
+    "telegraf": "^4.10.0"
+  },
+  "devDependencies": {
+    "@istanbuljs/esm-loader-hook": "0.2.0",
+    "tap": "^16.1.0"
+  },
+  "tap": {
+    "node-arg": [
+      "--no-warnings",
+      "--experimental-loader",
+      "@istanbuljs/esm-loader-hook"
+    ]
+  }
+}
