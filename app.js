@@ -1,7 +1,7 @@
 import path from 'path'
 import AutoLoad from '@fastify/autoload'
-import {fileURLToPath} from 'url'
-import {telegram} from "./services/telegraf/index.js";
+import { fileURLToPath } from 'url'
+import { telegram } from "./services/telegraf/index.js";
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -9,7 +9,7 @@ const __dirname = path.dirname(__filename)
 // Pass --options via CLI arguments in command to enable these options.
 export const options = {}
 
-export default async function (fastify, opts) {
+export default async function(fastify, opts) {
   // Place here your custom code!
 
   await telegram.init()

@@ -2,6 +2,10 @@
 
 Get jobs in one place!
 
+## Demo
+
+![Demo](https://github.com/oleh312/work-hunter/assets/demo.gif)
+
 ## Available sites
 
 1) <a  href="https://www.work.ua/">Work.ua</a>
