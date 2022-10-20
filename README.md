@@ -4,7 +4,7 @@ Get jobs in one place!
 
 ## Demo
 
-![Demo](https://github.com/oleh312/work-hunter/assets/demo.gif)
+![Demo](https://github.com/oleh312/work-hunter/blob/master/assets/demo.gif)
 
 ## Available sites
 
