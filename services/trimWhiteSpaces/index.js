@@ -1,11 +1,9 @@
 class Trim {
-
   whiteSpaces(string) {
-    return string.replace(/\s+/g, ' ').trim()
+    return string.replace(/\s+/g, " ").trim();
   }
-
 }
 
-const trim = new Trim
+const trim = new Trim();
 
-export {trim}
+export { trim };

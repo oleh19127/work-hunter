@@ -3,6 +3,6 @@ const commands = `
 /vacancies - Search vacancies
 /help - Help
 /quit - Quit from bot
-`
+`;
 
-export {commands}
+export { commands };

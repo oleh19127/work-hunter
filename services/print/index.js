@@ -1,17 +1,15 @@
-import {red, green} from "colorette"
+import { red, green } from "colorette";
 
-const log = console.log
+const log = console.log;
 
 class Print {
-
   successfully(message) {
-    log(green(message))
+    log(green(message));
   }
 
   error(message) {
-    log(red(message))
+    log(red(message));
   }
-
 }
 
-export const print = new Print
+export const print = new Print();
