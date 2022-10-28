@@ -34,6 +34,7 @@
   },
   "devDependencies": {
     "@istanbuljs/esm-loader-hook": "0.2.0",
+    "prettier": "^2.7.1",
     "tap": "^16.1.0"
   },
   "tap": {
