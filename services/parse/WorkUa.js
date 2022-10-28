@@ -18,10 +18,10 @@ class WorkUa {
       const body = await response.text();
       let $ = cheerio.load(body);
       const jobList = $("#pjax-job-list");
-      if (jobList.text().length === 0) {
+      const jobCards = jobList.find(".job-link").toArray();
+      if (jobCards.length === 0) {
         break;
       }
-      const jobCards = jobList.find(".job-link").toArray();
       for await (const card of jobCards) {
         const title = trim.whiteSpaces($(card).find("h2").text());
         const link = $(card).find("a").attr("href");
@@ -55,7 +55,7 @@ class WorkUa {
       }
     }
     let formatLinks = [];
-    const chunkSize = 45;
+    const chunkSize = 35;
     for (let i = 0; i < links.length; i += chunkSize) {
       const chunk = links.slice(i, i + chunkSize);
       formatLinks.push(chunk.join("\n"));
