@@ -1,8 +1,8 @@
 # Work Hunter
 
-Bot runs on a free heroku server, so the search may take some time.
-Refine your search as much as possible.
-The project is in the initial stage of development!!!
+- Bot runs on a free heroku server, so the search may take some time.
+- Refine your search as much as possible.
+- The project is in the initial stage of development!!!
 
 ## Demo
 
