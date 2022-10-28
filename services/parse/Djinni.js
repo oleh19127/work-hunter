@@ -1,9 +1,11 @@
 import * as cheerio from "cheerio";
 import fetch from "node-fetch";
+import { print } from "../print/index.js";
 import { trim } from "../trimWhiteSpaces/index.js";
 
 class Djinni {
   async init(searchText) {
+    print.warning("Start parse Djinni!!!"); // debug
     const formattedSearchText = searchText
       .toLowerCase()
       .trim()
@@ -72,6 +74,7 @@ class Djinni {
       const chunk = links.slice(i, i + chunkSize);
       formatLinks.push(chunk.join("\n"));
     }
+    print.warning("End parse Djinni!!!"); // debug
     return {
       title: '<a href="https://djinni.co/">Djinni</a>',
       message: formatLinks,

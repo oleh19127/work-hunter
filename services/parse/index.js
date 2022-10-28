@@ -1,12 +1,11 @@
-import { djinni } from "./djinni.js";
+import { djinni } from "./Djinni.js";
 import { workUa } from "./WorkUa.js";
-import { wrapper } from "../wrapper/index.js";
 
 class Parse {
   async init(searchText) {
     const [workUaVacancies, djinniVacancies] = await Promise.all([
-      wrapper.func(workUa.init, "WorkUa", searchText),
-      wrapper.func(djinni.init, "Djinni", searchText),
+      workUa.init(searchText),
+      djinni.init(searchText),
     ]);
     return [workUaVacancies, djinniVacancies];
   }

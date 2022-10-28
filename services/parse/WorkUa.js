@@ -1,9 +1,11 @@
 import * as cheerio from "cheerio";
 import { trim } from "../trimWhiteSpaces/index.js";
 import fetch from "node-fetch";
+import { print } from "../print/index.js";
 
 class WorkUa {
   async init(searchText) {
+    print.warning("Start parse WorkUa!!!"); // debug
     const formattedSearchText = searchText
       .toLowerCase()
       .trim()
@@ -60,6 +62,7 @@ class WorkUa {
       const chunk = links.slice(i, i + chunkSize);
       formatLinks.push(chunk.join("\n"));
     }
+    print.warning("End parse WorkUa!!!"); // debug
     return {
       title: '<a href="https://www.work.ua/">WorkUa</a>',
       message: formatLinks,
