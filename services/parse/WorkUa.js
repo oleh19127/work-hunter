@@ -1,7 +1,6 @@
 import * as cheerio from "cheerio";
 import { trim } from "../trimWhiteSpaces/index.js";
 import fetch from "node-fetch";
-import { print } from "../print/index.js";
 
 class WorkUa {
   async init(searchText) {

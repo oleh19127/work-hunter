@@ -6,7 +6,9 @@ import { sleep } from "../sleep/index.js";
 
 class Telegram {
   constructor() {
-    this.bot = new Telegraf(process.env.BOT_TOKEN);
+    this.bot = new Telegraf(process.env.BOT_TOKEN, {
+      handlerTimeout: 900_000_000,
+    });
   }
 
   async init() {
@@ -24,8 +26,8 @@ class Telegram {
       },
       async (ctx) => {
         try {
-          ctx.wizard.state.searchValue = ctx.message.text;
-          const searchValue = ctx.wizard.state.searchValue;
+          ctx.wizard.state.searchValue = await ctx.message.text;
+          const searchValue = await ctx.wizard.state.searchValue;
           await ctx.reply(`Searching: ${searchValue}`);
           const allVacancies = await parse.init(searchValue);
           print.successfully("Start upload vacancies");
@@ -35,7 +37,7 @@ class Telegram {
             });
             for (const item of vacancies.message) {
               await ctx.replyWithHTML(item, { disable_web_page_preview: true });
-              await sleep(200);
+              await sleep(2000);
             }
           }
           await ctx.reply("End upload vacancies");
@@ -48,11 +50,11 @@ class Telegram {
       }
     );
 
-    await stage.register(createWizardScene);
-    await this.bot.use(session());
-    await this.bot.use(stage.middleware());
+    stage.register(createWizardScene);
+    this.bot.use(session());
+    this.bot.use(stage.middleware());
 
-    await this.bot.start(async (ctx) => {
+    this.bot.start(async (ctx) => {
       try {
         await ctx.reply(`Welcome ${ctx.message.chat.first_name}`);
       } catch (e) {
@@ -61,7 +63,7 @@ class Telegram {
       }
     });
 
-    await this.bot.command("vacancies", async (ctx) => {
+    this.bot.command("vacancies", async (ctx) => {
       try {
         await ctx.scene.enter("searchJob");
       } catch (e) {
@@ -70,7 +72,7 @@ class Telegram {
       }
     });
 
-    await this.bot.help(async (ctx) => {
+    this.bot.help(async (ctx) => {
       try {
         await ctx.reply(commands);
       } catch (e) {
@@ -79,7 +81,7 @@ class Telegram {
       }
     });
 
-    await this.bot.on("text", async (ctx) => {
+    this.bot.on("text", async (ctx) => {
       try {
         await ctx.reply(commands);
       } catch (e) {
@@ -88,7 +90,7 @@ class Telegram {
       }
     });
 
-    await this.bot.command("quit", async (ctx) => {
+    this.bot.command("quit", async (ctx) => {
       try {
         await ctx.leaveChat();
         await ctx.reply("Leave chat!!!");
@@ -98,9 +100,14 @@ class Telegram {
       }
     });
 
-    await this.bot.launch();
-    process.once("SIGINT", async () => await this.bot.stop("SIGINT"));
-    process.once("SIGTERM", async () => await this.bot.stop("SIGTERM"));
+    this.bot.catch(async (e, ctx) => {
+      await ctx.reply(e);
+      print.error(e);
+    });
+
+    this.bot.launch();
+    process.once("SIGINT", () => this.bot.stop("SIGINT"));
+    process.once("SIGTERM", () => this.bot.stop("SIGTERM"));
   }
 }
 

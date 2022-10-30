@@ -1,6 +1,5 @@
 import * as cheerio from "cheerio";
 import fetch from "node-fetch";
-import { print } from "../print/index.js";
 import { trim } from "../trimWhiteSpaces/index.js";
 
 class Djinni {
