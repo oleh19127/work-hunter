@@ -1,6 +1,7 @@
 import * as cheerio from "cheerio";
 import fetch from "node-fetch";
 import { trim } from "../trimWhiteSpaces/index.js";
+import { print } from "../print/index.js";
 
 class Djinni {
   async init(searchText) {
