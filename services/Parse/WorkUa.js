@@ -1,16 +1,29 @@
 import * as cheerio from "cheerio";
-import { trim } from "../trimWhiteSpaces/index.js";
+import { trim } from "../Trim/Trim.js";
 import fetch from "node-fetch";
-import { print } from "../print/index.js";
+import { print } from "../Print/Print.js";
 
-class WorkUa {
-  async init(searchText) {
-    print.warning("Start parse WorkUa!!!"); // debug
-    const formattedSearchText = searchText
-      .toLowerCase()
-      .trim()
-      .split(" ")
-      .join("+");
+export class WorkUa {
+  constructor(searchText) {
+    this.searchText = searchText;
+  }
+  async init() {
+    print.warning(`Start search: ${this.searchText} on https://www.work.ua/`); // debug
+
+    const allVacancies = await this.getAllVacancies();
+    const links = await this.createLinks(allVacancies);
+    const formattedLinks = await this.formatLinks(links);
+
+    print.warning(`End search: ${this.searchText} on https://www.work.ua/`); // debug
+
+    return {
+      title: '<a href="https://www.work.ua/">WorkUa</a>',
+      message: formattedLinks,
+    };
+  }
+
+  async getAllVacancies() {
+    const formattedSearchText = this.formatSearchText(this.searchText);
     let response = await fetch(
       `https://www.work.ua/jobs-${formattedSearchText}/`
     );
@@ -44,6 +57,10 @@ class WorkUa {
         `https://www.work.ua/jobs-${formattedSearchText}/?page=${count++}`
       );
     }
+    return allVacancies;
+  }
+
+  async createLinks(allVacancies) {
     let links = [];
     if (allVacancies.length === 0) {
       links.push("No vacancies!!!");
@@ -56,18 +73,20 @@ class WorkUa {
         );
       }
     }
+    return links;
+  }
+
+  async formatLinks(links) {
     let formatLinks = [];
     const chunkSize = 35;
     for (let i = 0; i < links.length; i += chunkSize) {
       const chunk = links.slice(i, i + chunkSize);
       formatLinks.push(chunk.join("\n"));
     }
-    print.warning("End parse WorkUa!!!"); // debug
-    return {
-      title: '<a href="https://www.work.ua/">WorkUa</a>',
-      message: formatLinks,
-    };
+    return formatLinks;
+  }
+
+  formatSearchText(searchText) {
+    return searchText.toLowerCase().trim().split(" ").join("+");
   }
 }
-
-export const workUa = new WorkUa();

@@ -1,16 +1,29 @@
 import * as cheerio from "cheerio";
 import fetch from "node-fetch";
-import { trim } from "../trimWhiteSpaces/index.js";
-import { print } from "../print/index.js";
+import { trim } from "../Trim/Trim.js";
+import { print } from "../Print/Print.js";
 
-class Djinni {
-  async init(searchText) {
-    print.warning("Start parse Djinni!!!"); // debug
-    const formattedSearchText = searchText
-      .toLowerCase()
-      .trim()
-      .split(" ")
-      .join("+");
+export class Djinni {
+  constructor(searchText) {
+    this.searchText = searchText;
+  }
+  async init() {
+    print.warning(`Start search: ${this.searchText} on https://djinni.co/`); // debug
+
+    const allVacancies = await this.getAllVacancies();
+    const links = await this.createLinks(allVacancies);
+    const formattedLinks = await this.formatLinks(links);
+
+    print.warning(`End search: ${this.searchText} on https://djinni.co/`); // debug
+
+    return {
+      title: '<a href="https://djinni.co/">Djinni</a>',
+      message: formattedLinks,
+    };
+  }
+
+  async getAllVacancies() {
+    const formattedSearchText = this.formatSearchText(this.searchText);
     let response = await fetch(
       `https://djinni.co/jobs/?keywords=${formattedSearchText}&all-keywords=&any-of-keywords=&exclude-keywords=&full_text=on&region=UKR`
     );
@@ -56,6 +69,10 @@ class Djinni {
         `https://djinni.co/jobs/?keywords=${formattedSearchText}&all-keywords=&any-of-keywords=&exclude-keywords=&full_text=on&region=UKR&page=${count++}`
       );
     }
+    return allVacancies;
+  }
+
+  async createLinks(allVacancies) {
     let links = [];
     if (allVacancies.length === 0) {
       links.push("No vacancies!!!");
@@ -68,18 +85,20 @@ class Djinni {
         );
       }
     }
+    return links;
+  }
+
+  async formatLinks(links) {
     let formatLinks = [];
     const chunkSize = 10;
     for (let i = 0; i < links.length; i += chunkSize) {
       const chunk = links.slice(i, i + chunkSize);
       formatLinks.push(chunk.join("\n"));
     }
-    print.warning("End parse Djinni!!!"); // debug
-    return {
-      title: '<a href="https://djinni.co/">Djinni</a>',
-      message: formatLinks,
-    };
+    return formatLinks;
+  }
+
+  formatSearchText(searchText) {
+    return searchText.toLowerCase().trim().split(" ").join("+");
   }
 }
-
-export const djinni = new Djinni();

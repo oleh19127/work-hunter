@@ -1,7 +1,7 @@
 import path from "path";
 import AutoLoad from "@fastify/autoload";
 import { fileURLToPath } from "url";
-import { telegram } from "./services/telegraf/index.js";
+import { telegramBot } from "./services/telegram-bot/telegramBot.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -12,7 +12,7 @@ export const options = {};
 export default async function (fastify, opts) {
   // Place here your custom code!
 
-  await telegram.init();
+  await telegramBot();
 
   // Do not touch the following lines
 
