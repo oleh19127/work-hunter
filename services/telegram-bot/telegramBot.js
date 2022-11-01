@@ -22,13 +22,17 @@ export const telegramBot = async () => {
       await ctx.reply(`Searching: ${searchValue}`);
       const allVacancies = await new Parse().init(searchValue);
       print.successfully("Start upload vacancies");
+      let sleepTime = 200;
       for (const vacancies of allVacancies) {
         await ctx.replyWithHTML(`Results from: ${vacancies.title}`, {
           disable_web_page_preview: true,
         });
+
         for (const item of vacancies.message) {
           await ctx.replyWithHTML(item, { disable_web_page_preview: true });
-          await sleep(2000);
+          await sleep(sleepTime);
+          sleepTime = sleepTime + 100;
+          print.warning(sleepTime);
         }
       }
       await ctx.reply("End upload vacancies");

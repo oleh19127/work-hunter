@@ -8,13 +8,13 @@ export class WorkUa {
     this.searchText = searchText;
   }
   async init() {
-    print.warning(`Start search: ${this.searchText} on https://www.work.ua/`); // debug
+    print.warning(`Start search: "${this.searchText}" on https://www.work.ua/`); // debug
 
     const allVacancies = await this.getAllVacancies();
     const links = await this.createLinks(allVacancies);
     const formattedLinks = await this.formatLinks(links);
 
-    print.warning(`End search: ${this.searchText} on https://www.work.ua/`); // debug
+    print.warning(`End search: "${this.searchText}" on https://www.work.ua/`); // debug
 
     return {
       title: '<a href="https://www.work.ua/">WorkUa</a>',

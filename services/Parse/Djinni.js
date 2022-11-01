@@ -8,13 +8,13 @@ export class Djinni {
     this.searchText = searchText;
   }
   async init() {
-    print.warning(`Start search: ${this.searchText} on https://djinni.co/`); // debug
+    print.warning(`Start search: "${this.searchText}" on https://djinni.co/`); // debug
 
     const allVacancies = await this.getAllVacancies();
     const links = await this.createLinks(allVacancies);
     const formattedLinks = await this.formatLinks(links);
 
-    print.warning(`End search: ${this.searchText} on https://djinni.co/`); // debug
+    print.warning(`End search: "${this.searchText}" on https://djinni.co/`); // debug
 
     return {
       title: '<a href="https://djinni.co/">Djinni</a>',
