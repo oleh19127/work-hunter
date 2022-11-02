@@ -32,7 +32,7 @@ export const telegramBot = async () => {
           await ctx.replyWithHTML(item, { disable_web_page_preview: true });
           await sleep(sleepTime);
           sleepTime = sleepTime + 100;
-          print.warning(sleepTime);
+          // print.warning(sleepTime);
         }
       }
       await ctx.reply("End upload vacancies");
