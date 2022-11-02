@@ -1,7 +1,7 @@
 import path from "path";
 import AutoLoad from "@fastify/autoload";
 import { fileURLToPath } from "url";
-import { telegramBot } from "./services/telegram-bot/telegramBot.js";
+import { telegramBot } from "./services/telegram-bot/telegram-bot.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);

@@ -1,5 +1,5 @@
-import { Djinni } from "./Djinni.js";
-import { WorkUa } from "./WorkUa.js";
+import { Djinni } from "./djinni.js";
+import { WorkUa } from "./work-ua.js";
 
 export class Parse {
   async init(searchText) {

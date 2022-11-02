@@ -1,7 +1,7 @@
 import * as cheerio from "cheerio";
 import fetch from "node-fetch";
-import { trim } from "../Trim/Trim.js";
-import { print } from "../Print/Print.js";
+import { trim } from "../trim/trim.js";
+import { print } from "../print/print.js";
 
 export class Djinni {
   constructor(searchText) {

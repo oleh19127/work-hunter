@@ -1,7 +1,7 @@
 import * as cheerio from "cheerio";
-import { trim } from "../Trim/Trim.js";
+import { trim } from "../trim/trim.js";
 import fetch from "node-fetch";
-import { print } from "../Print/Print.js";
+import { print } from "../print/print.js";
 
 export class WorkUa {
   constructor(searchText) {

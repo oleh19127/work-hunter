@@ -1,8 +1,8 @@
 import { Scenes, session, Telegraf } from "telegraf";
 import { commands } from "./commands.js";
-import { print } from "../Print/Print.js";
-import { sleep } from "../sleep/index.js";
-import { Parse } from "../Parse/Parse.js";
+import { print } from "../print/print.js";
+import { sleep } from "../sleep/sleep.js";
+import { Parse } from "../parse/parse.js";
 
 export const telegramBot = async () => {
   const bot = new Telegraf(process.env.BOT_TOKEN, {
