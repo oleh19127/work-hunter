@@ -1,24 +1,16 @@
-# Getting Started with [Fastify-CLI](https://www.npmjs.com/package/fastify-cli)
+# Work Hunter
 
-This project was bootstrapped with Fastify-CLI.
+- Bot runs on a free heroku server, so the search may take some time.
+- Refine your search as much as possible.
+- The project is in the initial stage of development!!!
 
-## Available Scripts
+## Demo
 
-In the project directory, you can run:
+![Demo](https://github.com/oleh312/work-hunter/blob/master/assets/demo.gif)
 
-### `npm run dev`
+## Available sites
 
-To start the app in dev mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+1) <a  href="https://www.work.ua/">Work.ua</a>
+2) <a  href="https://djinni.co/">Djinni</a>
 
-### `npm start`
-
-For production mode
-
-### `npm run test`
-
-Run the test cases.
-
-## Learn More
-
-To learn Fastify, check out the [Fastify documentation](https://www.fastify.io/docs/latest/).
+### Try <a  href="http://t.me/WorkHunerBot">Work Hunter!!!</a> 
