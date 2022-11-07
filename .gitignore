@@ -62,10 +62,10 @@ examples/typescript-server.js
 test/types/index.js
 
 # compiled app
-# dist
+dist
 
 # env files
 .env
 
 # package-lock
-# package-lock.json
+package-lock.json
