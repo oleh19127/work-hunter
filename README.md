@@ -1,6 +1,5 @@
 # Work Hunter
 
-- Bot runs on a free heroku server, so the search may take some time.
 - Refine your search as much as possible.
 - The project is in the initial stage of development!!!
 
@@ -10,7 +9,7 @@
 
 ## Available sites
 
-1) <a  href="https://www.work.ua/">Work.ua</a>
-2) <a  href="https://djinni.co/">Djinni</a>
+1. <a  href="https://www.work.ua/">Work.ua</a>
+2. <a  href="https://djinni.co/">Djinni</a>
 
-### Try <a  href="http://t.me/WorkHunerBot">Work Hunter!!!</a> 
+### Try <a  href="http://t.me/WorkHunerBot">Work Hunter!!!</a>
