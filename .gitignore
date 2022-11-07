@@ -57,8 +57,15 @@ profile*
 *clinic*
 *flamegraph*
 
-# env
+# generated code
+examples/typescript-server.js
+test/types/index.js
+
+# compiled app
+dist
+
+# env files
 .env
 
-# package json
+# package-lock
 package-lock.json
