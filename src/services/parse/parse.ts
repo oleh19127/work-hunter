@@ -1,4 +1,4 @@
-import { IAllVacancies } from "../models/IAllVacancies";
+import { IAllVacancies } from "../../interfaces/IAllVacancies";
 import { Djinni } from "./djinni";
 import { WorkUa } from "./work-ua";
 

@@ -2,8 +2,8 @@ import * as cheerio from "cheerio";
 import { trim } from "../trim/trim";
 const fetch = require("node-fetch");
 import { print } from "../print/print";
-import { IVacancies } from "../models/IVacancies";
-import { IAllVacancies } from "../models/IAllVacancies";
+import { IVacancie } from "../../interfaces/IVacancie";
+import { IAllVacancies } from "../../interfaces/IAllVacancies";
 
 export class WorkUa {
   searchText: string;
@@ -16,7 +16,7 @@ export class WorkUa {
     // const allVacancies = await this.getAllVacancies();
     // const links = await this.createLinks(allVacancies);
     // const formattedLinks = await this.formatLinks(links);
-    const allVacancies: IVacancies[] = await this.getAllVacancies();
+    const allVacancies: IVacancie[] = await this.getAllVacancies();
     const links: string[] = await this.createLinks(allVacancies);
     const formattedLinks: string[] = await this.formatLinks(links);
 
@@ -28,13 +28,13 @@ export class WorkUa {
     };
   }
 
-  private async getAllVacancies(): Promise<IVacancies[]> {
+  private async getAllVacancies(): Promise<IVacancie[]> {
     const formattedSearchText = this.formatSearchText(this.searchText);
     let response = await fetch(
       `https://www.work.ua/jobs-${formattedSearchText}/`
     );
     let count = 2;
-    const allVacancies: IVacancies[] = [];
+    const allVacancies: IVacancie[] = [];
     while (true) {
       const body = await response.text();
       let $ = cheerio.load(body);
@@ -66,7 +66,7 @@ export class WorkUa {
     return allVacancies;
   }
 
-  private async createLinks(allVacancies: IVacancies[]): Promise<string[]> {
+  private async createLinks(allVacancies: IVacancie[]): Promise<string[]> {
     let links: string[] = [];
     if (allVacancies.length === 0) {
       links.push("No vacancies!!!");

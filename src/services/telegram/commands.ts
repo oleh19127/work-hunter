@@ -1,4 +1,4 @@
-const commands: string = `
+const commands = `
 /start - Restart bot
 /vacancies - Search vacancies
 /help - Help

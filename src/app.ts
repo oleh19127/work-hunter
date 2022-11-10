@@ -1,7 +1,7 @@
 import { join } from "path";
 import AutoLoad, { AutoloadPluginOptions } from "@fastify/autoload";
 import { FastifyPluginAsync } from "fastify";
-import { telegramBot } from "./telegram-bot/telegram-bot";
+import { telegram } from "./services/telegram/telegram";
 
 export type AppOptions = {
   // Place your custom options for app below here.
@@ -16,7 +16,7 @@ const app: FastifyPluginAsync<AppOptions> = async (
 ): Promise<void> => {
   // Place here your custom code!
 
-  await telegramBot();
+  await telegram();
 
   // Do not touch the following lines
 

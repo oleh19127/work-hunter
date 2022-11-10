@@ -4,9 +4,9 @@ import { commands } from "./commands";
 import { print } from "../print/print";
 import { sleep } from "../sleep/sleep";
 import { Parse } from "../parse/parse";
-import { IAllVacancies } from "../models/IAllVacancies";
+import { IAllVacancies } from "../../interfaces/IAllVacancies";
 
-export const telegramBot = async () => {
+export const telegram = async () => {
   const bot: Telegraf<Context<Update>> = new Telegraf(
     process.env.BOT_TOKEN as string,
     {

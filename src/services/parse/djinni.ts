@@ -2,8 +2,8 @@ import * as cheerio from "cheerio";
 import { trim } from "../trim/trim";
 import { print } from "../print/print";
 const fetch = require("node-fetch");
-import { IVacancies } from "../models/IVacancies";
-import { IAllVacancies } from "../models/IAllVacancies";
+import { IVacancie } from "../../interfaces/IVacancie";
+import { IAllVacancies } from "../../interfaces/IAllVacancies";
 
 export class Djinni {
   searchText: string;
@@ -13,7 +13,7 @@ export class Djinni {
   async init(): Promise<IAllVacancies> {
     print.warning(`Start search: "${this.searchText}" on https://djinni.co/`); // debug
 
-    const allVacancies: IVacancies[] = await this.getAllVacancies();
+    const allVacancies: IVacancie[] = await this.getAllVacancies();
     const links: string[] = await this.createLinks(allVacancies);
     const formattedLinks: string[] = await this.formatLinks(links);
 
@@ -25,13 +25,13 @@ export class Djinni {
     };
   }
 
-  private async getAllVacancies(): Promise<IVacancies[]> {
+  private async getAllVacancies(): Promise<IVacancie[]> {
     const formattedSearchText = this.formatSearchText(this.searchText);
     let response = await fetch(
       `https://djinni.co/jobs/?keywords=${formattedSearchText}&all-keywords=&any-of-keywords=&exclude-keywords=&full_text=on&region=UKR`
     );
     let count = 2;
-    const allVacancies: IVacancies[] = [];
+    const allVacancies: IVacancie[] = [];
     while (true) {
       const body = await response.text();
       let $ = cheerio.load(body);
@@ -75,7 +75,7 @@ export class Djinni {
     return allVacancies;
   }
 
-  private async createLinks(allVacancies: IVacancies[]): Promise<string[]> {
+  private async createLinks(allVacancies: IVacancie[]): Promise<string[]> {
     let links: string[] = [];
     if (allVacancies.length === 0) {
       links.push("No vacancies!!!");
