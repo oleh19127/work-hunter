@@ -1,21 +1,17 @@
 import * as cheerio from "cheerio";
-import { trim } from "../trim/trim";
-import { print } from "../print/print";
-const fetch = require("node-fetch");
-import { IVacancie } from "../../interfaces/IVacancie";
-import { IAllVacancies } from "../../interfaces/IAllVacancies";
+import { trim } from "../helpers/trim/trim.js";
+import { print } from "../helpers/print/print.js";
 
 export class Djinni {
-  searchText: string;
-  constructor(searchText: string) {
+  constructor(searchText) {
     this.searchText = searchText;
   }
-  async init(): Promise<IAllVacancies> {
+  async init() {
     print.warning(`Start search: "${this.searchText}" on https://djinni.co/`); // debug
 
-    const allVacancies: IVacancie[] = await this.getAllVacancies();
-    const links: string[] = await this.createLinks(allVacancies);
-    const formattedLinks: string[] = await this.formatLinks(links);
+    const allVacancies = await this.getAllVacancies();
+    const links = await this.createLinks(allVacancies);
+    const formattedLinks = await this.formatLinks(links);
 
     print.warning(`End search: "${this.searchText}" on https://djinni.co/`); // debug
 
@@ -25,13 +21,13 @@ export class Djinni {
     };
   }
 
-  private async getAllVacancies(): Promise<IVacancie[]> {
+  async getAllVacancies() {
     const formattedSearchText = this.formatSearchText(this.searchText);
     let response = await fetch(
       `https://djinni.co/jobs/?keywords=${formattedSearchText}&all-keywords=&any-of-keywords=&exclude-keywords=&full_text=on&region=UKR`
     );
     let count = 2;
-    const allVacancies: IVacancie[] = [];
+    const allVacancies = [];
     while (true) {
       const body = await response.text();
       let $ = cheerio.load(body);
@@ -75,8 +71,8 @@ export class Djinni {
     return allVacancies;
   }
 
-  private async createLinks(allVacancies: IVacancie[]): Promise<string[]> {
-    let links: string[] = [];
+  async createLinks(allVacancies) {
+    let links = [];
     if (allVacancies.length === 0) {
       links.push("No vacancies!!!");
     } else {
@@ -91,8 +87,8 @@ export class Djinni {
     return links;
   }
 
-  private async formatLinks(links: string[]): Promise<string[]> {
-    let formatLinks: string[] = [];
+  async formatLinks(links) {
+    let formatLinks = [];
     const chunkSize = 10;
     for (let i = 0; i < links.length; i += chunkSize) {
       const chunk = links.slice(i, i + chunkSize);
@@ -101,7 +97,7 @@ export class Djinni {
     return formatLinks;
   }
 
-  private formatSearchText(searchText: string): string {
+  formatSearchText(searchText) {
     return searchText.toLowerCase().trim().split(" ").join("+");
   }
 }

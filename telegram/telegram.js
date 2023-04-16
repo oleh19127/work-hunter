@@ -1,18 +1,16 @@
-import { Scenes, session, Context, Telegraf } from "telegraf";
-import { Update } from "telegraf/types";
-import { commands } from "./commands";
-import { print } from "../print/print";
-import { sleep } from "../sleep/sleep";
-import { Parse } from "../parse/parse";
-import { IAllVacancies } from "../../interfaces/IAllVacancies";
+import { Scenes, session, Telegraf } from "telegraf";
+import { commands } from "./commands.js";
+import { print } from "../helpers/print/print.js";
+import { sleep } from "../helpers/sleep/sleep.js";
+import { Parse } from "../parse/index.js";
+import * as dotenv from "dotenv";
+import { message } from "telegraf/filters";
+dotenv.config();
 
 export const telegram = async () => {
-  const bot: Telegraf<Context<Update>> = new Telegraf(
-    process.env.BOT_TOKEN as string,
-    {
-      handlerTimeout: 900_000_000,
-    }
-  );
+  const bot = new Telegraf(process.env.BOT_TOKEN, {
+    handlerTimeout: 900_000_000,
+  });
 
   const stage = new Scenes.Stage();
   const createWizardScene = new Scenes.WizardScene(
@@ -22,25 +20,23 @@ export const telegram = async () => {
       return ctx.wizard.next();
     },
     async (ctx) => {
-      // @ts-ignore
       ctx.wizard.state.searchValue = await ctx.message.text;
-      // @ts-ignore
       const searchValue = await ctx.wizard.state.searchValue;
       await ctx.reply(`Searching: ${searchValue}`);
-      const allVacancies: IAllVacancies[] = await new Parse().init(searchValue);
+      const allVacancies = await new Parse().init(searchValue);
       print.successfully("Start upload vacancies");
       let sleepTime = 200;
-      for (const vacancies of allVacancies) {
-        await ctx.replyWithHTML(`Results from: ${vacancies.title}`, {
+      for (const allVacancy of allVacancies) {
+        await ctx.replyWithHTML(`Results from: ${allVacancy.title}`, {
           disable_web_page_preview: true,
         });
-        for (const message of vacancies.messages) {
-          await ctx.replyWithHTML(message, {
+        for (const allVacancyMessage of allVacancy.messages) {
+          await ctx.replyWithHTML(allVacancyMessage, {
             disable_web_page_preview: true,
           });
           await sleep(sleepTime);
           sleepTime = sleepTime + 100;
-          // print.warning(sleepTime);
+          print.warning(`Sleep time ${sleepTime}`);
         }
       }
       await ctx.reply("End upload vacancies");
@@ -48,10 +44,10 @@ export const telegram = async () => {
       return ctx.scene.leave();
     }
   );
-  // @ts-ignore
+
   stage.register(createWizardScene);
   bot.use(session());
-  // @ts-ignore
+
   bot.use(stage.middleware());
 
   bot.start(async (ctx) => {
@@ -59,7 +55,6 @@ export const telegram = async () => {
   });
 
   bot.command("vacancies", async (ctx) => {
-    // @ts-ignore
     await ctx.scene.enter("searchJob");
   });
 
@@ -67,7 +62,7 @@ export const telegram = async () => {
     await ctx.reply(commands);
   });
 
-  bot.on("text", async (ctx) => {
+  bot.on(message("text"), async (ctx) => {
     await ctx.reply(commands);
   });
 
@@ -76,7 +71,7 @@ export const telegram = async () => {
     await ctx.reply("Leave chat!!!");
   });
 
-  bot.catch(async (e: any, ctx) => {
+  bot.catch(async (e, ctx) => {
     await ctx.reply(e.message);
     print.error(e.message);
   });

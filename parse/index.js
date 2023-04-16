@@ -1,9 +1,8 @@
-import { IAllVacancies } from "../../interfaces/IAllVacancies";
-import { Djinni } from "./djinni";
-import { WorkUa } from "./work-ua";
+import { WorkUa } from "./work-ua.js";
+import { Djinni } from "./djinni.js";
 
 export class Parse {
-  async init(searchText: string): Promise<IAllVacancies[]> {
+  async init(searchText) {
     const [workUaVacancies, djinniVacancies] = await Promise.all([
       new WorkUa(searchText).init(),
       new Djinni(searchText).init(),

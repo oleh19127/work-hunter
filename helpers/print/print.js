@@ -3,16 +3,20 @@ import { red, green, yellow } from "colorette";
 const log = console.log;
 
 class Print {
-  successfully(message: string) {
+  successfully(message) {
     log(green(message));
   }
 
-  error(message: string) {
+  error(message) {
     log(red(message));
   }
 
-  warning(message: string) {
+  warning(message) {
     log(yellow(message));
+  }
+
+  default(message) {
+    log(message);
   }
 }
 

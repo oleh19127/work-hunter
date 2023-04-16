@@ -1,5 +1,5 @@
 class Trim {
-  whiteSpaces(string: string) {
+  whiteSpaces(string) {
     return string.replace(/\s+/g, " ").trim();
   }
 }

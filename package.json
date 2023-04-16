@@ -1,20 +1,13 @@
 {
   "name": "work-hunter",
   "version": "1.0.0",
+  "type": "module",
   "description": "Telegram bot that parses vacancies from sites",
-  "main": "app.ts",
-  "directories": {
-    "test": "test"
-  },
+  "main": "index.js",
   "scripts": {
-    "tsc": "tsc",
-    "test": "npm run build:ts && tsc -p test/tsconfig.json && tap --ts \"test/**/*.test.ts\"",
-    "start": "npm run build:ts && fastify start -l info dist/app.js",
-    "build:ts": "tsc",
-    "watch:ts": "tsc -w",
-    "dev": "npm run build:ts && concurrently -k -p \"[{name}]\" -n \"TypeScript,App\" -c \"yellow.bold,cyan.bold\" \"npm:watch:ts\" \"npm:dev:start\"",
-    "dev:start": "fastify start --ignore-watch=.ts$ -w -l info -P dist/app.js",
-    "postinstall": "npm run tsc"
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
     "telegram",
@@ -22,27 +15,17 @@
     "cli",
     "job finder"
   ],
-  "author": "Oleh Husak",
+  "author": "Oleh Husak (https://github.com/oleh312)",
   "license": "ISC",
   "dependencies": {
-    "@fastify/autoload": "^5.0.0",
-    "@fastify/sensible": "^5.0.0",
     "cheerio": "^1.0.0-rc.12",
     "colorette": "^2.0.19",
-    "fastify": "^4.0.0",
-    "fastify-cli": "^5.5.1",
-    "fastify-plugin": "^4.0.0",
-    "node-fetch": "^2.6.7",
-    "telegraf": "^4.10.0"
+    "dotenv": "^16.0.3",
+    "node-fetch": "^3.3.1",
+    "telegraf": "^4.12.2"
   },
   "devDependencies": {
-    "@types/node": "^18.0.0",
-    "@types/tap": "^15.0.5",
-    "concurrently": "^7.0.0",
-    "fastify-tsconfig": "^1.0.1",
-    "prettier": "^2.7.1",
-    "tap": "^16.1.0",
-    "ts-node": "^10.4.0",
-    "typescript": "^4.5.4"
+    "nodemon": "^2.0.22",
+    "prettier": "^2.8.7"
   }
 }
