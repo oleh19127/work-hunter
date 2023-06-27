@@ -4,7 +4,7 @@
 
 ## Demo
 
-![Demo](https://github.com/oleh312/work-hunter/blob/master/assets/demo.gif)
+![Demo](https://github.com/oleh19127/work-hunter/blob/master/assets/demo.gif)
 
 ## Available sites
 
